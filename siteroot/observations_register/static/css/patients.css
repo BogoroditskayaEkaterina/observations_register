@@ -1,0 +1,106 @@
+.main-container{
+    width: 70%;
+    margin: 0 auto;
+    padding: 1%;
+    background-color: #ffffff;
+    border-radius: 37px;
+    padding-top: 5%;
+    margin-bottom: 5%;
+}
+
+.patient-form{
+    margin-top: -5%;
+    margin-left: 5%;
+}
+
+.profile-table {
+  border-collapse: collapse;
+}
+
+.profile-table-td {
+  padding: 10px;
+  text-decoration: bold;
+  font-weight: bold;
+}
+
+.list-patients{
+    margin-top: 5%;
+    margin-left: 5%;
+}
+
+.patients-table{
+    border-collapse: collapse;
+}
+
+.patients-table td{
+    padding: 10px;
+    border: 3px solid #00114a;
+    font-size: 18px;
+}
+
+.patients-table tr:nth-child(odd){
+    background-color: white;
+}
+
+.patients-table tr:nth-child(even){
+    background-color: #d9f4fa;
+}
+
+.patient-name{
+    text-align:center;
+    margin-top: -5%;
+    text-decoration: underline;
+}
+
+.patient-headers{
+    text-align:center;
+    margin-top: 5%;
+}
+
+.button-delete{
+    margin-left: 37%;
+}
+
+.table-ifo{
+    margin-left: 20%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+.button-position{
+    margin-left: 38%;
+}
+
+.questionnaire{
+    margin-bottom: 2%;
+    margin-left: 15%;
+}
+
+.create-que{
+    margin-left: 30%;
+}
+
+.btn-save{
+    margin-left: 20%;
+}
+
+.que-td{
+    font-size: 20px;
+}
+
+.que-td-1{
+    border-bottom: 1px solid black;
+}
+
+.change-pat{
+    margin-left: 40%;
+}
+
+.btn-save-2{
+    margin-left:7%;
+}
+
+.decision{
+    margin-left: 15%;
+    margin-bottom: 5%;
+}

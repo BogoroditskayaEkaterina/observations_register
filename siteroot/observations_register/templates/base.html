@@ -1,18 +1,29 @@
 {% load static %}
 
 <html lang="rus">
+    <header>
+      <h1>
+          <head>
+            <link rel="stylesheet" href="{% static 'css/observations_register.css' %}">
+            <title>{% block title %} {% endblock %}</title>
+          </head>
 
-<head>
-    <link rel="stylesheet" href="{% static 'css/observations_register.css' %}">
-    <title>{% block title %}{% endblock %}</title>
-    <link rel="shortcut icon" href="{% static 'img/logo-icon.png' %}" type="image/x-icon"> {% block icon %}{% endblock %}
-</head>
+        {% if user.is_authenticated %}
+            {% include 'auth-header.html' %}
+         {% else %}
+            {% include 'anon-header.html' %}
+         {% endif %}
+
+      </h1>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <polygon fill="#E5E5E5" points="0,100 100,0 100,100"/>
+      </svg>
+    </header>
 
 <body>
 
-    {% if user.is_authenticated %} {% include 'auth-header.html' %} {% else %} {% include 'anon-header.html' %} {% endif %} {% block content %} {% endblock %}
-
-
+    {% block content %} {% endblock %}
+    {% include 'footer.html' %}
 </body>
 
 </html>

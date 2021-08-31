@@ -1,142 +1,136 @@
-{% extends 'base.html' %} {% block title %} Медкарта {{ patient.fullname }} {% endblock %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% block title %} Медкарта {{ patient.fullname }} {% endblock %} {% block content %}
+{% block extrahead %}
+    <link rel="stylesheet" href="{% static 'css/patients.css'%}" type="text/css">
+{% endblock %}
+<div class="main-container">
+    <h2 class="patient-name">Пациент - {{ patient.fullname }}</h2>
 
-<div class="container">
-    <h2>Пациент - {{ patient.fullname }}</h2>
+    <h3 class="patient-headers">Основная информация:</h3>
+    <div class="table-ifo">
+         <table>
+            <tr>
+                <th class="border-bottom" width="200px">Пол</th>
+                <th class="border-bottom" width="200px">Дата рождения</th>
+                <th class="border-bottom" width="200px">Цвет глаз</th>
+                <th class="border-bottom" width="200px">Цвет волос</th>
+            </tr>
+            <tr>
+                <td class="border-bottom">{{ patient.gender }}</td>
+                <td class="border-bottom">{{ patient.birthday }}</td>
+                <td class="border-bottom">{{ patient.eyes_col }}</td>
+                <td class="border-bottom">{{ patient.hair_col }}</td>
+            </tr>
+        </table>
+    </div>
 
-    <h3>Основная информация:</h3>
-    <table>
-        <tr>
-            <th class="border-bottom" width="200px">Пол</th>
-            <th class="border-bottom" width="200px">Дата рождения</th>
-            <th class="border-bottom" width="200px">Цвет глаз</th>
-            <th class="border-bottom" width="200px">Цвет волос</th>
-        </tr>
-        <tr>
-            <td class="border-bottom">{{ patient.gender }}</td>
-            <td class="border-bottom">{{ patient.birthday }}</td>
-            <td class="border-bottom">{{ patient.eyes_col }}</td>
-            <td class="border-bottom">{{ patient.hair_col }}</td>
-        </tr>
-    </table>
+    <div class="button-position">
+        {% for group_for in request.user.groups.all %} {% if group_for.name == 'Operators' %}
+        <a href="{% url 'patient-update' patient.id %}" class='btn btn-blue'>Изменить</a> {% endif %} {% endfor%}
 
-    {% for group_for in request.user.groups.all %} {% if group_for.name == 'Operators' %}
-    <a href="{% url 'patient-update' patient.id %}" class='btn btn-blue'>Изменить</a> {% endif %} {% endfor%}
+        {% for group_for in request.user.groups.all %} {% if group_for.name == 'Operators' %}
+        <a href="{% url 'create-questionnaire' patient.id %}" class='btn btn-blue'>Добавить анкету</a> {% endif %} {% endfor %}
+    </div>
 
-    <h3>Опросники:</h3>
+    <h3 class="patient-headers">Опросники:</h3>
     {% for questionnaire in patient.get_questionnaires %}
-    <table>
-        <tr>
-            <th class="border-bottom" width="500px">Вопрос</th>
-            <th class="border-bottom" width="500px">Ответ</th>
-        </tr>
-        <tr>
-            <td class="border-bottom">Дата визита</td>
-            <td class="border-bottom">{{ questionnaire.date_of_visit }}</td>
-        </tr>
-        <tr>
-            <td class="border-bottom">Вес</td>
-            <td class="border-bottom">{{ questionnaire.weight }}</td>
-        </tr>
-        <tr>
-            <td class="border-bottom">Рост</td>
-            <td class="border-bottom">{{ questionnaire.growth }}</td>
-        </tr>
-        <tr>
-            <td class="border-bottom">Наличие веснушек</td>
-            <td class="border-bottom">{{ questionnaire.freckles }}</td>
-        </tr>
-        <tr>
-            <td class="border-bottom">Оттенок кожи</td>
-            <td class="border-bottom">{{ questionnaire.skin_col }}</td>
-        </tr>
-        <tr>
-            <td class="border-bottom">Краснеет ли кожа при загаре?</td>
-            <td class="border-bottom">{{ questionnaire.redness_during_sunburn }}</td>
-        </tr>
-        <tr>
-            <td class="border-bottom">Загорает ли кожа?</td>
-            <td class="border-bottom">{{ questionnaire.tanning_character }}</td>
-        </tr>
-        <tr>
-            <td class="border-bottom">Как часто отдыхаете на юге?</td>
-            <td class="border-bottom">{{ questionnaire.rest_in_south }}</td>
-        </tr>
-        <tr>
-            <td class="border-bottom">Пользуетесь ли Вы солнцезащитными средствами летом?</td>
-            <td class="border-bottom">{{ questionnaire.sunscreen_using }}</td>
-        </tr>
-        <tr>
-            <td class="border-bottom">Когда появилось новообразование?</td>
-            <td class="border-bottom">{{ questionnaire.neoplasm_appearance }}</td>
-        </tr>
-        <tr>
-            <td class="border-bottom">Расположение новообразования</td>
-            <td class="border-bottom">{{ questionnaire.neoplasm_location }}</td>
-        </tr>
-        <tr>
-            <td class="border-bottom">Были ли случаи кожных опухолей кожи в Вашей семье?</td>
-            <td class="border-bottom">{{ questionnaire.skin_tumors_in_fam }}</td>
-        </tr>
-        <tr>
-            <td class="border-bottom">Размер элемента по оси X-Y и мм</td>
-            <td class="border-bottom">{{ questionnaire.elem_size }}</td>
-        </tr>
-        <tr>
-            <td class="border-bottom">Общая площадь элемента в мм</td>
-            <td class="border-bottom">{{ questionnaire.elem_area }}</td>
-        </tr>
-        <tr>
-            <td class="border-bottom">Границы элемента</td>
-            <td class="border-bottom">{{ questionnaire.elem_borders }}</td>
-        </tr>
-        <tr>
-            <td class="border-bottom">Преобладающий цвет элемента</td>
-            <td class="border-bottom">{{ questionnaire.elem_color }}</td>
-        </tr>
-        <tr>
-            <td class="border-bottom">Наличие включений</td>
-            <td class="border-bottom">{{ questionnaire.inclusions }}</td>
-        </tr>
-        <tr>
-            <td class="border-bottom">Симметричность элемента</td>
-            <td class="border-bottom">{{ questionnaire.elem_symmetry }}</td>
-        </tr>
-        <tr>
-            <td class="border-bottom">Снимок новообразования</td>
-            {% if questionnaire.neo_img %}
-            <td class="border-bottom">
-                <img src="/media/{{ questionnaire.neo_img }}" alt="{{ questionnaire.neo_img }}" style="max-height:300px">
-            </td>
-            {% else %}
-            <td class="border-bottom">
-                None
-            </td>
-            {% endif %}
-        </tr>
-        <tr>
-            <td class="border-bottom">Эталонный снимок</td>
-            {% if questionnaire.neo_img %}
-            <td class="border-bottom">
-                <img src="/media/{{ questionnaire.ref_img }}" alt="{{ questionnaire.ref_img }}" style="max-height:300px">
-            </td>
-            {% else %}
-            <td class="border-bottom">
-                None
-            </td>
-            {% endif %}
-        </tr>
-    </table>
+    <div  class="questionnaire">
+        <table>
+            <tr>
+                <th class="border-bottom" width="500px">Вопрос</th>
+                <th class="border-bottom" width="500px">Ответ</th>
+            </tr>
+            <tr>
+                <td class="border-bottom">Дата визита</td>
+                <td class="border-bottom">{{ questionnaire.date_of_visit }}</td>
+            </tr>
+            <tr>
+                <td class="border-bottom">Вес</td>
+                <td class="border-bottom">{{ questionnaire.weight }}</td>
+            </tr>
+            <tr>
+                <td class="border-bottom">Рост</td>
+                <td class="border-bottom">{{ questionnaire.growth }}</td>
+            </tr>
+            <tr>
+                <td class="border-bottom">Наличие веснушек</td>
+                <td class="border-bottom">{{ questionnaire.freckles }}</td>
+            </tr>
+            <tr>
+                <td class="border-bottom">Оттенок кожи</td>
+                <td class="border-bottom">{{ questionnaire.skin_col }}</td>
+            </tr>
+            <tr>
+                <td class="border-bottom">Краснеет ли кожа при загаре?</td>
+                <td class="border-bottom">{{ questionnaire.redness_during_sunburn }}</td>
+            </tr>
+            <tr>
+                <td class="border-bottom">Загорает ли кожа?</td>
+                <td class="border-bottom">{{ questionnaire.tanning_character }}</td>
+            </tr>
+            <tr>
+                <td class="border-bottom">Как часто отдыхаете на юге?</td>
+                <td class="border-bottom">{{ questionnaire.rest_in_south }}</td>
+            </tr>
+            <tr>
+                <td class="border-bottom">Пользуетесь ли Вы солнцезащитными средствами летом?</td>
+                <td class="border-bottom">{{ questionnaire.sunscreen_using }}</td>
+            </tr>
+            <tr>
+                <td class="border-bottom">Когда появилось новообразование?</td>
+                <td class="border-bottom">{{ questionnaire.neoplasm_appearance }}</td>
+            </tr>
+            <tr>
+                <td class="border-bottom">Расположение новообразования</td>
+                <td class="border-bottom">{{ questionnaire.neoplasm_location }}</td>
+            </tr>
+            <tr>
+                <td class="border-bottom">Были ли случаи кожных опухолей кожи в Вашей семье?</td>
+                <td class="border-bottom">{{ questionnaire.skin_tumors_in_fam }}</td>
+            </tr>
+            <tr>
+                <td class="border-bottom">Размер элемента по оси X-Y и мм</td>
+                <td class="border-bottom">{{ questionnaire.elem_size }}</td>
+            </tr>
+            <tr>
+                <td class="border-bottom">Общая площадь элемента в мм</td>
+                <td class="border-bottom">{{ questionnaire.elem_area }}</td>
+            </tr>
+            <tr>
+                <td class="border-bottom">Границы элемента</td>
+                <td class="border-bottom">{{ questionnaire.elem_borders }}</td>
+            </tr>
+            <tr>
+                <td class="border-bottom">Преобладающий цвет элемента</td>
+                <td class="border-bottom">{{ questionnaire.elem_color }}</td>
+            </tr>
+            <tr>
+                <td class="border-bottom">Наличие включений</td>
+                <td class="border-bottom">{{ questionnaire.inclusions }}</td>
+            </tr>
+            <tr>
+                <td class="border-bottom">Симметричность элемента</td>
+                <td class="border-bottom">{{ questionnaire.elem_symmetry }}</td>
+            </tr>
+        </table>
+    </div>
 
-    <h4>Решение врача:</h4>
-    <p>
-        1. {{ questionnaire.doc_decision }}<br> 2. Повторная явка: {{ questionnaire.reappearance }}
-    </p>
-
-    {% for group_for in request.user.groups.all %} {% if group_for.name == 'Operators' %}
-    <a href="#" onclick="confirm_delete('{% url 'delete-questionnaire' patient.id questionnaire.id %}');" class='btn btn-blue'>Удалить</a> {% endif %} {% endfor %} {% endfor %}
-    <!-- for questionnaires  -->
+        <div class="decision">
+            <h4>Решение врача:</h4>
+            <p>
+                1. {{ questionnaire.doc_decision }}<br>
+                2. Повторная явка: {{ questionnaire.reappearance }}
+            </p>
 
 
+
+            {% for group_for in request.user.groups.all %}
+                {% if group_for.name == 'Operators' %}
+                    <a href="#" onclick="confirm_delete('{% url 'delete-questionnaire' patient.id questionnaire.id %}');" class='btn btn-blue button-delete'>Удалить</a>
+                {% endif %}
+            {% endfor %}
+
+        </div>
+    {% endfor %}<!-- for questionnaires  -->
     {% for group_for in request.user.groups.all %} {% if group_for.name == 'Operators' %}
     <a href="{% url 'create-questionnaire' patient.id %}" class='btn btn-blue'>Добавить анкету</a> {% endif %} {% endfor %}
 
