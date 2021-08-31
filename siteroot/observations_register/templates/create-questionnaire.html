@@ -26,7 +26,6 @@
     <h3 class="patient-headers">Добавление анкеты пациента</h3>
     <form action="create-questionnaire" method="post" class="create-que">
         {% csrf_token %}
-
         <table class="profile-table">
             {% for field in form %}
             <tr>

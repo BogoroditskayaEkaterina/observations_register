@@ -72,16 +72,16 @@
 }
 
 .questionnaire{
-    margin-bottom: 5%;
+    margin-bottom: 2%;
     margin-left: 15%;
 }
 
 .create-que{
-    margin-left: 35%;
+    margin-left: 30%;
 }
 
 .btn-save{
-    margin-left: 15%;
+    margin-left: 20%;
 }
 
 .que-td{
@@ -98,4 +98,9 @@
 
 .btn-save-2{
     margin-left:7%;
+}
+
+.decision{
+    margin-left: 15%;
+    margin-bottom: 5%;
 }

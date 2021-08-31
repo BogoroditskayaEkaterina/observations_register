@@ -8,7 +8,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from .models import Patient, Questionnaire
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-
+from csv_export.views import CSVExportView
 
 class AccountLoginView(LoginView):
     ''' Display the login form '''
@@ -103,3 +103,24 @@ def delete_questionnaire(request, patient_id=None, questionnaire_id=None):
     questionnaire_to_delete = Questionnaire.objects.get(id=questionnaire_id)
     questionnaire_to_delete.delete()
     return HttpResponseRedirect(reverse('medical-card', args=[patient_id]))
+
+
+class PatientExportView(CSVExportView):
+    model = Patient
+    fields = ('id','gender', 'birthday', 'eyes_col', 'hair_col')
+    header = True
+    specify_separator = False
+    filename = 'Patient-export.csv'
+
+class QuestionnaireExportView(CSVExportView):
+    model = Questionnaire
+    fields = ("date_of_visit", "patient", "weight",
+                  "growth", "freckles", "skin_col",
+                  "redness_during_sunburn", "tanning_character", "rest_in_south",
+                  "sunscreen_using", "neoplasm_appearance", "neoplasm_location",
+                  "skin_tumors_in_fam", "elem_size", "elem_area",
+                  "elem_borders", "elem_color", "inclusions", "elem_symmetry",
+                  "doc_decision", "reappearance")
+    header = True
+    specify_separator = False
+    filename = 'Questionnaire-export.csv'

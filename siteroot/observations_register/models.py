@@ -75,6 +75,8 @@ class Questionnaire(models.Model):
     elem_color = models.CharField(max_length=10, choices=ELEM_COLOR_CHOICES, null=True, blank=True)
     inclusions = models.BooleanField(null=True, blank=True)
     elem_symmetry = models.BooleanField(null=True, blank=True)
+    neo_img = models.ImageField(upload_to='images', null= True, blank=True)
+    ref_img = models.ImageField(upload_to='images', null= True, blank=True)
     doc_decision = models.CharField(max_length=34, choices=DOC_DECISION_CHOICES, null=True, blank=True)
     reappearance = models.CharField(max_length=18, choices=REAPPEARANCE_CHOICES, null=True, blank=True)
 

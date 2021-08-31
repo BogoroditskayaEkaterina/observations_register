@@ -37,7 +37,7 @@ class QuestionnaireCreateForm(forms.ModelForm):
                   "redness_during_sunburn", "tanning_character", "rest_in_south",
                   "sunscreen_using", "neoplasm_appearance", "neoplasm_location",
                   "skin_tumors_in_fam", "elem_size", "elem_area",
-                  "elem_borders", "elem_color", "inclusions", "elem_symmetry",
+                  "elem_borders", "elem_color", "inclusions", "elem_symmetry","neo_img","ref_img",
                   "doc_decision", "reappearance")
         labels = {
             'date_of_visit': 'Дата посещения',
@@ -59,6 +59,8 @@ class QuestionnaireCreateForm(forms.ModelForm):
             'elem_color': 'Преобладающий цвет элемента',
             'inclusions': 'Наличие включений',
             'elem_symmetry': 'Симметричность элемента',
+            "neo_img" : 'Снимок новообразования',
+            "ref_img" : 'Эталонный снимок',
             'doc_decision': 'Решение врача',
             'reappearance': 'Повторная явка',
         }
